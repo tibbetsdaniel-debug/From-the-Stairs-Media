@@ -41,7 +41,7 @@ function Reveal({ children, delay = 0, className = '' }: { children: ReactNode; 
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 28 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.8, delay, ease: [0.2, 0.7, 0.2, 1] }}
@@ -96,7 +96,7 @@ function Hero() {
         <p className="mono text-primary mb-8">
           Strategic growth partner / Media brands
         </p>
-        <h1 className="display text-[clamp(3.2rem,10.5vw,10rem)] font-light max-w-6xl">
+        <h1 className="display text-[clamp(3.2rem,10.5vw,10rem)] font-normal max-w-6xl">
           <span className="block">Taking Media</span>
           <span className="block">Brands to Their</span>
           <span className="block italic text-primary">Next Step.</span>
@@ -179,7 +179,7 @@ function Capabilities() {
     <section id="capabilities" className="bg-card border-y py-28 md:py-36">
       <div className="max-w-7xl mx-auto px-6">
         <Reveal><p className="mono text-primary mb-6">02 / Capabilities</p></Reveal>
-        <Reveal><h2 className="display text-5xl md:text-7xl font-light max-w-4xl mb-16">What we do.</h2></Reveal>
+        <Reveal><h2 className="display text-5xl md:text-7xl font-normal max-w-4xl mb-16">What we do.</h2></Reveal>
         <div className="border-t">
           {capDetail.map(([t, d], i) => {
             const on = active === i;
@@ -213,7 +213,7 @@ function Approach() {
   return (
     <section id="approach" className="max-w-7xl mx-auto px-6 py-28 md:py-40">
       <Reveal><p className="mono text-primary mb-6">03 / Approach</p></Reveal>
-      <Reveal><h2 className="display text-5xl md:text-7xl font-light max-w-3xl mb-20">One step, then <span className="italic">the next.</span></h2></Reveal>
+      <Reveal><h2 className="display text-5xl md:text-7xl font-normal max-w-3xl mb-20">One step, then <span className="italic">the next.</span></h2></Reveal>
       <div className="grid md:grid-cols-4 gap-4 items-end">
         {approach.map(([t, d], i) => (
           <Reveal key={t} delay={i * 0.1}>
@@ -238,7 +238,7 @@ function Principal() {
         </Reveal>
         <div className="md:col-span-9">
           <Reveal>
-            <h2 className="display text-5xl md:text-7xl font-light">Daniel Tibbets</h2>
+            <h2 className="display text-5xl md:text-7xl font-normal">Daniel Tibbets</h2>
             <p className="text-muted-foreground text-lg mt-5">Media executive</p>
           </Reveal>
           <Reveal delay={0.1}>
@@ -273,7 +273,7 @@ function Partners() {
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-12 gap-10">
         <div className="md:col-span-5">
           <Reveal><p className="mono mb-6" style={{ color: 'hsl(200 40% 30%)' }}>05 / Who we work with</p></Reveal>
-          <Reveal><h2 className="display text-5xl md:text-7xl font-light">Built for brands that <span className="italic">already mean something.</span></h2></Reveal>
+          <Reveal><h2 className="display text-5xl md:text-7xl font-normal">Built for brands that <span className="italic">already mean something.</span></h2></Reveal>
         </div>
         <div className="md:col-span-7 border-t border-background/20">
           {partners.map(([t, d], i) => (
@@ -306,7 +306,7 @@ function Companies() {
     <section id="companies" className="max-w-7xl mx-auto px-6 py-28 md:py-36">
       <Reveal><p className="mono text-primary mb-6">06 / Companies</p></Reveal>
       <Reveal>
-        <h2 className="display text-5xl md:text-7xl font-light max-w-4xl mb-16">
+        <h2 className="display text-5xl md:text-7xl font-normal max-w-4xl mb-16">
           Companies we’ve worked with.
         </h2>
       </Reveal>
@@ -365,7 +365,7 @@ function Contact() {
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16">
         <div>
           <Reveal><p className="mono text-primary mb-6">08 / Contact</p></Reveal>
-          <Reveal><h2 className="display text-6xl md:text-8xl font-light">Ready for the <span className="italic">next step?</span></h2></Reveal>
+          <Reveal><h2 className="display text-6xl md:text-8xl font-normal">Ready for the <span className="italic">next step?</span></h2></Reveal>
           <Reveal delay={0.1}>
             <p className="text-xl mt-8 max-w-md">Tell us about the brand. We will tell you what we see.</p>
             <a href={`mailto:${EMAIL}`} data-testid="link-email" className="display text-primary text-2xl md:text-3xl mt-6 inline-block underline underline-offset-8 break-all">{EMAIL}</a>
