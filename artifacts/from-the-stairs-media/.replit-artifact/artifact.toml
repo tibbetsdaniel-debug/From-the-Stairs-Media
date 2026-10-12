@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "From the Stairs Media"
+description = "A responsive company website for From the Stairs Media, LLC, presenting its strategic media growth services and helping media brands start a conversation about new revenue, distribution, licensing, audience growth, and brand revitalization."
+version = "1.0.0"
+id = "artifacts/from-the-stairs-media"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19088
+
+[services.development]
+run = "pnpm --filter @workspace/from-the-stairs-media run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/from-the-stairs-media", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/from-the-stairs-media/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19088"
+BASE_PATH = "/"
