@@ -434,27 +434,27 @@
 }
 
 :root, .dark {
-  --background: 200 28% 8%;
-  --foreground: 90 18% 93%;
-  --border: 200 14% 20%;
-  --card: 200 26% 11%;
-  --card-foreground: 90 18% 93%;
-  --card-border: 200 14% 20%;
-  --popover: 200 26% 11%;
-  --popover-foreground: 90 18% 93%;
-  --popover-border: 200 14% 20%;
-  --primary: 66 100% 58%;
-  --primary-foreground: 200 28% 8%;
-  --secondary: 200 20% 16%;
-  --secondary-foreground: 90 18% 93%;
-  --muted: 200 20% 14%;
-  --muted-foreground: 200 12% 62%;
-  --accent: 66 100% 58%;
-  --accent-foreground: 200 28% 8%;
+  --background: 216 30% 9%;
+  --foreground: 210 20% 94%;
+  --border: 216 18% 25%;
+  --card: 216 26% 13%;
+  --card-foreground: 210 20% 94%;
+  --card-border: 216 18% 25%;
+  --popover: 216 26% 13%;
+  --popover-foreground: 210 20% 94%;
+  --popover-border: 216 18% 25%;
+  --primary: 203 48% 73%;
+  --primary-foreground: 216 30% 9%;
+  --secondary: 216 22% 18%;
+  --secondary-foreground: 210 20% 94%;
+  --muted: 216 22% 16%;
+  --muted-foreground: 210 16% 70%;
+  --accent: 203 48% 73%;
+  --accent-foreground: 216 30% 9%;
   --destructive: 0 70% 55%;
   --destructive-foreground: 0 0% 98%;
-  --input: 200 14% 28%;
-  --ring: 66 100% 58%;
+  --input: 216 18% 32%;
+  --ring: 203 48% 73%;
   --app-font-sans: 'Hanken Grotesk', sans-serif;
   --app-font-serif: 'Fraunces', serif;
   --app-font-mono: 'JetBrains Mono', monospace;

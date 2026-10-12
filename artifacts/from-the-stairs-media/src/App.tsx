@@ -6,6 +6,7 @@ import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
+import Advisors from '@/pages/advisors';
 import {
   Route,
   Switch,
@@ -15,6 +16,7 @@ import {
 
 const queryClient = new QueryClient();
 const EMAIL = 'ftsm@fromthestairsmedia.com';
+const HOME_URL = import.meta.env.BASE_URL;
 
 function Mark({ size = 28 }: { size?: number }) {
   return (
@@ -26,7 +28,7 @@ function Mark({ size = 28 }: { size?: number }) {
 
 function Wordmark() {
   return (
-    <a href="#top" data-testid="link-home" className="flex items-center gap-3">
+    <a href={`${HOME_URL}#top`} data-testid="link-home" className="flex items-center gap-3">
       <Mark />
       <span className="display text-xl leading-none">
         From the Stairs<span className="italic text-primary"> Media</span>
@@ -56,6 +58,7 @@ const links = [
   ['Principal', '#principal'],
   ['Partners', '#partners'],
   ['Companies', '#companies'],
+  ['Advisors', 'advisors'],
 ];
 
 function Nav() {
@@ -64,20 +67,20 @@ function Nav() {
     <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-background/75 border-b">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <Wordmark />
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="hidden xl:flex items-center gap-5">
           {links.map(([l, h]) => (
-            <a key={h} href={h} data-testid={`link-nav-${l.toLowerCase()}`} className="mono text-muted-foreground hover:text-primary transition-colors">{l}</a>
+            <a key={h} href={`${HOME_URL}${h}`} data-testid={`link-nav-${l.toLowerCase()}`} className="mono text-muted-foreground hover:text-primary transition-colors">{l}</a>
           ))}
-          <a href="#contact" data-testid="button-nav-contact" className="mono bg-primary text-primary-foreground px-4 py-2 hover:-translate-y-0.5 transition-transform">Start a conversation</a>
+          <a href={`${HOME_URL}#contact`} data-testid="button-nav-contact" className="mono bg-primary text-primary-foreground px-4 py-2 hover:-translate-y-0.5 transition-transform">Start a conversation</a>
         </nav>
-        <button className="lg:hidden" onClick={() => setOpen(!open)} data-testid="button-menu" aria-label="Menu">
+        <button className="xl:hidden" onClick={() => setOpen(!open)} data-testid="button-menu" aria-label="Menu" aria-expanded={open}>
           {open ? <X /> : <Menu />}
         </button>
       </div>
       {open && (
-        <div className="lg:hidden border-t bg-background px-6 py-6 flex flex-col gap-5">
+        <div className="xl:hidden border-t bg-background px-6 py-6 flex flex-col gap-5">
           {[...links, ['Contact', '#contact']].map(([l, h]) => (
-            <a key={h} href={h} onClick={() => setOpen(false)} className="display text-3xl" data-testid={`link-mobile-${l.toLowerCase()}`}>{l}</a>
+            <a key={h} href={`${HOME_URL}${h}`} onClick={() => setOpen(false)} className="display text-3xl" data-testid={`link-mobile-${l.toLowerCase()}`}>{l}</a>
           ))}
         </div>
       )}
@@ -115,7 +118,7 @@ function Hero() {
             className="flex-1 border-t border-r origin-bottom transition-[height] duration-700 ease-out"
             style={{
               height: `${28 + s * 18}%`,
-              background: s === 4 ? 'hsl(var(--primary))' : `hsl(200 26% ${11 + s * 1.5}%)`,
+              background: s === 4 ? 'hsl(var(--primary))' : `hsl(216 26% ${13 + s * 2}%)`,
             }}
           />
         ))}
@@ -134,7 +137,7 @@ const caps = [
 function Strip() {
   const row = [...caps, ...caps, ...caps, ...caps];
   return (
-    <div className="bg-primary text-primary-foreground overflow-hidden py-4 border-y">
+    <div className="bg-card text-primary overflow-hidden py-4 border-y">
       <div className="marquee flex w-max gap-10 whitespace-nowrap">
         {row.map((c, i) => (
           <span key={i} className="display text-2xl italic flex items-center gap-10">{c}<Mark size={14} /></span>
@@ -356,16 +359,16 @@ function Contact() {
     const body = encodeURIComponent(`Name: ${name}\nBrand: ${brand}\n\n${msg}`);
     window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
   };
-  const field = 'w-full bg-transparent border-b-2 border-primary-foreground/40 focus:border-primary-foreground outline-none py-3 text-lg placeholder:text-primary-foreground/50';
+  const field = 'w-full bg-transparent border-b-2 border-foreground/30 focus:border-primary outline-none py-3 text-lg placeholder:text-muted-foreground';
   return (
-    <section id="contact" className="bg-primary text-primary-foreground py-28 md:py-36">
+    <section id="contact" className="bg-card text-foreground border-y py-28 md:py-36">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16">
         <div>
-          <Reveal><p className="mono mb-6">08 / Contact</p></Reveal>
+          <Reveal><p className="mono text-primary mb-6">08 / Contact</p></Reveal>
           <Reveal><h2 className="display text-6xl md:text-8xl font-light">Ready for the <span className="italic">next step?</span></h2></Reveal>
           <Reveal delay={0.1}>
             <p className="text-xl mt-8 max-w-md">Tell us about the brand. We will tell you what we see.</p>
-            <a href={`mailto:${EMAIL}`} data-testid="link-email" className="display text-2xl md:text-3xl mt-6 inline-block underline underline-offset-8 break-all">{EMAIL}</a>
+            <a href={`mailto:${EMAIL}`} data-testid="link-email" className="display text-primary text-2xl md:text-3xl mt-6 inline-block underline underline-offset-8 break-all">{EMAIL}</a>
           </Reveal>
         </div>
         <Reveal delay={0.15}>
@@ -373,10 +376,10 @@ function Contact() {
             <input className={field} placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} required data-testid="input-name" />
             <input className={field} placeholder="Brand or company" value={brand} onChange={(e) => setBrand(e.target.value)} data-testid="input-brand" />
             <textarea className={field + ' resize-none'} rows={4} placeholder="What should we know?" value={msg} onChange={(e) => setMsg(e.target.value)} required data-testid="input-message" />
-            <button type="submit" data-testid="button-send" className="mono bg-primary-foreground text-primary px-8 py-5 flex items-center gap-2 hover:-translate-y-0.5 transition-transform">
+            <button type="submit" data-testid="button-send" className="mono bg-primary text-primary-foreground px-8 py-5 flex items-center gap-2 hover:-translate-y-0.5 transition-transform">
               Open in email <ArrowUpRight size={14} />
             </button>
-            <p className="text-sm opacity-70">This opens your email app with the message prepared.</p>
+            <p className="text-sm text-muted-foreground">This opens your email app with the message prepared.</p>
           </form>
         </Reveal>
       </div>
@@ -392,6 +395,7 @@ function Footer() {
         <p className="text-muted-foreground mt-4 text-sm">From the Stairs Media, LLC. FTSM.</p>
       </div>
       <div className="flex flex-col gap-2 md:items-end text-sm">
+        <a href={`${HOME_URL}advisors`} className="hover:text-primary transition-colors">Advisors</a>
         <a href={`mailto:${EMAIL}`} data-testid="link-footer-email" className="hover:text-primary transition-colors">{EMAIL}</a>
         <a href="#top" data-testid="link-back-top" className="mono text-muted-foreground hover:text-primary">Back to top</a>
         <p className="text-muted-foreground">fromthestairsmedia.com</p>
@@ -424,6 +428,13 @@ function Router() {
     <RoutedErrorBoundary>
       <Switch>
         <Route path="/" component={Home} />
+        <Route path="/advisors">
+          <main>
+            <Nav />
+            <Advisors />
+            <Footer />
+          </main>
+        </Route>
         <Route component={NotFound} />
       </Switch>
     </RoutedErrorBoundary>

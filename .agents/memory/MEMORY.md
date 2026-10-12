@@ -1,0 +1,1 @@
+- [Brand direction](brand-direction.md) — keep FTSM creative but business/professional; the user rejected bright yellow for readability.
