@@ -190,8 +190,9 @@ function Founder() {
           <h2 className="display font-black text-[clamp(3rem,6vw,5.6rem)] mb-6">Daniel Tibbets</h2>
           <p className="text-2xl font-bold leading-snug mb-6">An operator, not a consultant. Daniel builds the strategy, then runs it.</p>
           <div className="lede flex flex-col gap-4 max-w-[640px]">
-            <p>Daniel founded From the Stairs Media to give media brands what most advisors can’t: someone who has actually run the business. FTSM doesn’t hand over a deck and walk away. Daniel plans the strategy and executes it, often stepping into the operating role himself. Today, through FTSM, he is GM of El Rey Rebel and COO of PropQwiz, and is building projects with Lucha Underground, Gate 52, DMG, and the film fund Pen Ultimate.</p>
-            <p>Over 30 years he has been early at every major shift in how audiences watch: vertical mobile drama, YouTube, FAST, and convergence TV. He has started up and turned around networks, studios, and digital brands, taking several to acquisition, including GoTV and Machinima, and has overseen more than 4,000 episodes of television.</p>
+            <p>From the Stairs Media gives media brands more than advice. FTSM offers hands-on guidance, strategy, and execution. Decks are created and implemented, complete with operational support, if desired. Today, through FTSM, Daniel Tibbets is GM of El Rey Rebel and COO of PropQwiz, with several projects in development, working with brands such as Lucha Underground, Gate 52, DMG, and the film fund Pen Ultimate.</p>
+            <p>For over 30 years, Daniel has been early to every major shift in audience viewership, from the inception of vertical mobile drama to YouTube, FAST, and convergence TV.</p>
+            <p>From start-ups and network reconstructions to acquisitions and production oversight, Daniel Tibbets has managed over 4,000 episodes of television and had two companies acquired in multimillion-dollar deals.</p>
           </div>
           <a
             href="https://en.wikipedia.org/wiki/Daniel_Tibbets"
@@ -263,19 +264,20 @@ function FirstMovers() {
 }
 
 const services: [string, string][] = [
-  ['Brand revival', 'We take a name with history, put it back in front of an audience, and build the business that makes it pay.'],
-  ['Distribution', 'We get your content onto the platforms where the audience is, and negotiate the carriage and revenue-share deals ourselves.'],
-  ['FAST strategy & launch', 'Channel concept, carriage, programming, and ad sales, from the team that moved a whole network to FAST and grew it 4x.'],
-  ['Short-form & vertical drama', 'Development, production, and monetization of vertical series, from the people who made the first ones.'],
-  ['Licensing & partnerships', 'We find the partners who would pay to carry, license, or co-own what you’ve built, and we close the deal.'],
-  ['Operating leadership & project management', 'When a brand needs someone in the chair, Daniel steps in as GM, COO, or CEO. When it needs a project delivered, we run it from kickoff to launch.'],
+  ['Brand revival', 'Build a business model to reach new audiences and find new revenue.'],
+  ['Distribution', 'Negotiate carriage and revenue-share deals to launch fresh content.'],
+  ['FAST strategy & launch', 'Create a winning concept and programming slate to generate ad sales.'],
+  ['Short-form & vertical drama', 'Develop, produce, and monetize vertical series.'],
+  ['Licensing & partnerships', 'Locate and negotiate with new partners to carry, license, or co-own productions.'],
+  ['Operational leadership', 'Be it a GM, COO, or CEO, FTSM provides project management at the highest level at all stages, from launch to acquisition.'],
 ];
 
 function Services() {
   return (
     <section id="services" className="max-w-7xl mx-auto px-6 pt-24 md:pt-28 pb-10">
       <h2 className="display text-[clamp(2.4rem,4.4vw,4rem)] leading-none mb-4">What we do</h2>
-      <p className="lede text-xl max-w-[640px] mb-10">We don’t hand over a deck. We do the work, and we stay until it pays off.</p>
+      <p className="lede text-xl max-w-[640px] mb-3">From the Stairs Media does more than create decks. FTSM does the work and stays until it pays.</p>
+      <p className="font-bold text-lg mb-8">With From the Stairs Media you get:</p>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {services.map(([t, d], i) => (
           <div key={t} className="bg-card rounded p-8" data-testid={`card-service-${i}`}>
@@ -289,10 +291,10 @@ function Services() {
 }
 
 const approach: [string, string][] = [
-  ['Read', 'We look at the brand the way a buyer would: audience, rights, catalog, and the money being left on the table.'],
-  ['Map', 'We pick the partners, platforms, and deals worth chasing, ranked by effort against upside.'],
-  ['Open doors', 'We make the calls, run the negotiations, and shape the terms ourselves.'],
-  ['Build', 'We launch it and run it until the deal shows up in the numbers.'],
+  ['Read', 'A complete analysis of the current business model and operation, breaking down the brand the way a buyer would: audience, rights, catalog, and untapped revenue streams.'],
+  ['Map', 'FTSM finds partners, platforms, and new deals, ranking them by effort against upside.'],
+  ['Open doors', 'FTSM makes the calls, negotiates, and closes the terms best for the brand.'],
+  ['Build', 'FTSM implements a relaunch to build numbers that entice future prospects.'],
 ];
 
 function Approach() {
