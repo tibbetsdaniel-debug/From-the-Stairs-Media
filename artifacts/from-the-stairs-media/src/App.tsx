@@ -111,8 +111,8 @@ const current: Company[] = [
   { name: 'El Rey Rebel', role: 'General Manager · formerly El Rey Network', href: 'https://www.elreynetwork.com/' },
   { name: 'Gate 52', role: 'Project management', href: 'https://gate52.com/' },
   { name: 'PropQwiz', role: 'Chief Operating Officer', href: 'https://www.propqwiz.com/' },
-  { name: 'DMG', role: 'Dooya Media Group · Brand revival & distribution', href: 'https://dooya.tv/' },
-  { name: 'Pen Ultimate', role: 'Film fund · Brand revival & distribution' },
+  { name: 'DMG', role: 'Dooya Media Group · Content distribution', href: 'https://dooya.tv/' },
+  { name: 'Pen Ultimate', role: 'Film fund · Advisor' },
 ];
 
 const previous: Company[] = [
