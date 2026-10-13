@@ -33,9 +33,9 @@ export function Mark({ size = 32 }: { size?: number }) {
 
 function Wordmark() {
   return (
-    <a href={`${HOME_URL}#top`} data-testid="link-home" className="flex items-center gap-3" aria-label="From the Stairs Media, home">
+    <a href={`${HOME_URL}#top`} data-testid="link-home" className="flex items-center gap-2.5 sm:gap-3 min-w-0" aria-label="From the Stairs Media, home">
       <Mark />
-      <span className="display text-[22px] sm:text-[26px] leading-none tracking-[0.04em] whitespace-nowrap">
+      <span className="display text-[19px] min-[400px]:text-[22px] sm:text-[26px] leading-none tracking-[0.04em] whitespace-nowrap">
         From the Stairs<span className="text-primary"> Media</span>
       </span>
     </a>
@@ -86,19 +86,67 @@ function Nav() {
 
 /* ---------- Sections ---------- */
 
+/*
+ * Hero background video.
+ * Leave `enabled` false until the files exist in /public, then set it to true.
+ *   hero.mp4         desktop loop, 1920x1080, H.264, muted, 10–20s, ideally under 5 MB
+ *   hero-mobile.mp4  phone loop, 720p (or vertical 720x1280), under 2 MB
+ *   hero-poster.jpg  a still frame, shown while loading and to anyone with reduced motion on
+ */
+const HERO_VIDEO = {
+  enabled: false,
+  desktop: 'hero.mp4',
+  mobile: 'hero-mobile.mp4',
+  poster: 'hero-poster.jpg',
+};
+
+function HeroVideo() {
+  const [reduceMotion] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  );
+  if (!HERO_VIDEO.enabled) return null;
+  const poster = `${HOME_URL}${HERO_VIDEO.poster}`;
+  return (
+    <div className="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+      {reduceMotion ? (
+        <img src={poster} alt="" className="w-full h-full object-cover" />
+      ) : (
+        <video
+          className="w-full h-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster={poster}
+          disablePictureInPicture
+        >
+          <source src={`${HOME_URL}${HERO_VIDEO.mobile}`} type="video/mp4" media="(max-width: 767px)" />
+          <source src={`${HOME_URL}${HERO_VIDEO.desktop}`} type="video/mp4" />
+        </video>
+      )}
+      {/* Dark wash so the headline always reads, heavier at the bottom where the copy sits */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(15,14,12,0.55),rgba(15,14,12,0.7)_60%,rgba(15,14,12,1))]" />
+    </div>
+  );
+}
+
 function Hero() {
   return (
-    <section id="top" className="max-w-7xl mx-auto px-6 pt-36 md:pt-44 pb-24">
-      <h1 className="display font-black text-[clamp(4rem,12vw,11.5rem)] leading-[0.88]">
-        Your media brand’s<br /><span className="text-primary">next step.</span>
-      </h1>
-      <div className="flex flex-wrap items-center gap-8 mt-14">
-        <p className="lede flex-[1_1_420px] max-w-[600px] text-[21px] leading-relaxed">
-          Unlock new revenue through partnerships, distribution, licensing, audience growth, and brand revitalization.
-        </p>
-        <a href="#contact" data-testid="button-hero-contact" className="inline-flex items-center gap-2 min-h-14 px-8 rounded-full bg-primary text-primary-foreground font-bold hover:brightness-110 transition">
-          Start a conversation <ArrowUpRight size={18} aria-hidden="true" />
-        </a>
+    <section className="relative isolate">
+      <HeroVideo />
+      <div id="top" className="max-w-7xl mx-auto px-6 pt-36 md:pt-44 pb-24">
+        <h1 className="display font-black text-[clamp(4rem,12vw,11.5rem)] leading-[0.88]">
+          Your media brand’s<br /><span className="text-primary">next step.</span>
+        </h1>
+        <div className="flex flex-wrap items-center gap-8 mt-14">
+          <p className="lede flex-[1_1_420px] max-w-[600px] text-[21px] leading-relaxed">
+            Unlock new revenue through partnerships, distribution, licensing, audience growth, and brand revitalization.
+          </p>
+          <a href="#contact" data-testid="button-hero-contact" className="inline-flex items-center gap-2 min-h-14 px-8 rounded-full bg-primary text-primary-foreground font-bold hover:brightness-110 transition">
+            Start a conversation <ArrowUpRight size={18} aria-hidden="true" />
+          </a>
+        </div>
       </div>
     </section>
   );
