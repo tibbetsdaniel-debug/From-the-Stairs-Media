@@ -192,7 +192,7 @@ function Founder() {
           <div className="lede flex flex-col gap-4 max-w-[640px]">
             <p>From the Stairs Media gives media brands more than advice. FTSM offers hands-on guidance, strategy, and execution. Decks are created and implemented, complete with operational support, if desired. Today, through FTSM, Daniel Tibbets is GM of El Rey Rebel and COO of PropQwiz, with several projects in development, working with brands such as Lucha Underground, Gate 52, DMG, and the film fund Pen Ultimate.</p>
             <p>For over 30 years, Daniel has been early to every major shift in audience viewership, from the inception of vertical mobile drama to YouTube, FAST, and convergence TV.</p>
-            <p>From start-ups and network reconstructions to acquisitions and production oversight, Daniel Tibbets has managed over 4,000 episodes of television and had two companies acquired in multimillion-dollar deals.</p>
+            <p>From start-ups and network reconstructions to acquisitions and production oversight, Daniel Tibbets has managed over 4,000 episodes of television and had four companies acquired in multimillion-dollar deals.</p>
           </div>
           <a
             href="https://en.wikipedia.org/wiki/Daniel_Tibbets"
