@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Hanken+Grotesk:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
@@ -434,35 +434,65 @@
 }
 
 :root, .dark {
-  --background: 216 30% 9%;
-  --foreground: 210 20% 94%;
-  --border: 216 18% 25%;
-  --card: 216 26% 13%;
-  --card-foreground: 210 20% 94%;
-  --card-border: 216 18% 25%;
-  --popover: 216 26% 13%;
-  --popover-foreground: 210 20% 94%;
-  --popover-border: 216 18% 25%;
-  --primary: 203 48% 73%;
-  --primary-foreground: 216 30% 9%;
-  --secondary: 216 22% 18%;
-  --secondary-foreground: 210 20% 94%;
-  --muted: 216 22% 16%;
-  --muted-foreground: 210 16% 70%;
-  --accent: 203 48% 73%;
-  --accent-foreground: 216 30% 9%;
+  /* From the Stairs Media — Marquee direction: warm near-black, cream, one amber accent */
+  --background: 40 11% 5%;
+  --foreground: 37 40% 93%;
+  --border: 36 10% 19%;
+  --card: 40 12% 9%;
+  --card-foreground: 37 40% 93%;
+  --card-border: 36 10% 19%;
+  --popover: 40 12% 9%;
+  --popover-foreground: 37 40% 93%;
+  --popover-border: 36 10% 19%;
+  --primary: 36 88% 59%;
+  --primary-foreground: 40 11% 5%;
+  --secondary: 40 12% 13%;
+  --secondary-foreground: 37 40% 93%;
+  --muted: 40 12% 13%;
+  --muted-foreground: 36 11% 67%;
+  --accent: 36 88% 59%;
+  --accent-foreground: 40 11% 5%;
   --destructive: 0 70% 55%;
   --destructive-foreground: 0 0% 98%;
-  --input: 216 18% 32%;
-  --ring: 203 48% 73%;
-  --app-font-sans: 'Hanken Grotesk', sans-serif;
-  --app-font-serif: 'Fraunces', serif;
-  --app-font-mono: 'JetBrains Mono', monospace;
+  --input: 36 10% 30%;
+  --ring: 36 88% 59%;
+  --app-font-sans: 'Manrope', sans-serif;
+  --app-font-serif: 'Big Shoulders Display', sans-serif;
+  --app-font-mono: 'Manrope', sans-serif;
 }
 html { scroll-behavior: smooth; }
-body::after { content:''; position:fixed; inset:0; pointer-events:none; z-index:100; opacity:.07;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-.display { font-family: var(--app-font-serif); font-optical-sizing:auto; letter-spacing:-0.01em; line-height:1.08; }
-.mono { font-family: var(--app-font-mono); letter-spacing:0.08em; text-transform:uppercase; font-size:0.75rem; }
-@keyframes slide { to { transform: translateX(-50%); } }
-.marquee { animation: slide 40s linear infinite; }
+body { font-size: 17px; line-height: 1.6; }
+
+/* Headline face: condensed, uppercase, tight but readable */
+.display {
+  font-family: var(--app-font-serif);
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 0.92;
+  font-weight: 800;
+}
+/* Small section labels */
+.mono {
+  font-family: var(--app-font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+.lede { color: hsl(37 22% 80%); }
+
+/* Linked company names */
+.client-link {
+  text-decoration: underline;
+  text-decoration-color: hsl(36 10% 27%);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.18em;
+  transition: color 0.2s, text-decoration-color 0.2s;
+}
+.client-link:hover, .client-link:focus-visible {
+  color: hsl(var(--primary));
+  text-decoration-color: hsl(var(--primary));
+}
+.client-link-sm { text-decoration-thickness: 2px; text-underline-offset: 6px; }
+
+:focus-visible { outline: 2px solid hsl(var(--primary)); outline-offset: 3px; }

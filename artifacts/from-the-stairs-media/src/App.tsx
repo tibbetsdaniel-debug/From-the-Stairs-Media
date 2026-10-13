@@ -1,6 +1,5 @@
 import { type ReactNode, useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { motion } from 'framer-motion';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
@@ -17,334 +16,302 @@ import {
 const queryClient = new QueryClient();
 const EMAIL = 'ftsm@fromthestairsmedia.com';
 const HOME_URL = import.meta.env.BASE_URL;
+const CREAM = '#F4EFE7';
 
-function Mark({ size = 28 }: { size?: number }) {
+/* ---------- Brand ---------- */
+
+export function Mark({ size = 32 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden>
-      <path d="M2 30V22H10V14H18V6H30V30Z" fill="hsl(var(--primary))" />
+    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true">
+      <rect x="0" y="20" width="8" height="12" fill={CREAM} />
+      <rect x="12" y="10" width="8" height="22" fill={CREAM} />
+      <rect x="24" y="0" width="8" height="32" fill="hsl(var(--primary))" />
     </svg>
   );
 }
 
 function Wordmark() {
   return (
-    <a href={`${HOME_URL}#top`} data-testid="link-home" className="flex items-center gap-3">
+    <a href={`${HOME_URL}#top`} data-testid="link-home" className="flex items-center gap-3" aria-label="From the Stairs Media, home">
       <Mark />
-      <span className="display text-xl leading-none">
-        From the Stairs<span className="italic text-primary"> Media</span>
+      <span className="display text-[22px] sm:text-[26px] leading-none tracking-[0.04em] whitespace-nowrap">
+        From the Stairs<span className="text-primary"> Media</span>
       </span>
     </a>
   );
 }
 
-function Reveal({ children, delay = 0, className = '' }: { children: ReactNode; delay?: number; className?: string }) {
-  return (
-    <motion.div
-      className={className}
-      initial={false}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.8, delay, ease: [0.2, 0.7, 0.2, 1] }}
-    >
-      {children}
-    </motion.div>
-  );
+function SectionLabel({ children, className = '' }: { children: ReactNode; className?: string }) {
+  return <p className={`mono text-primary mb-4 ${className}`}>{children}</p>;
 }
 
-const links = [
-  ['Thesis', '#thesis'],
-  ['Capabilities', '#capabilities'],
+/* ---------- Navigation ---------- */
+
+const links: [string, string][] = [
+  ['Work', '#work'],
+  ['Daniel', '#daniel'],
+  ['First movers', '#early'],
+  ['Services', '#services'],
   ['Approach', '#approach'],
-  ['Principal', '#principal'],
-  ['Partners', '#partners'],
-  ['Companies', '#companies'],
   ['Advisors', 'advisors'],
 ];
 
 function Nav() {
   const [open, setOpen] = useState(false);
   return (
-    <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-background/75 border-b">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-background/85 border-b">
+      <div className="max-w-7xl mx-auto px-6 h-[72px] flex items-center justify-between gap-6">
         <Wordmark />
-        <nav className="hidden xl:flex items-center gap-5">
+        <nav aria-label="Main" className="hidden lg:flex items-center gap-7">
           {links.map(([l, h]) => (
-            <a key={h} href={`${HOME_URL}${h}`} data-testid={`link-nav-${l.toLowerCase()}`} className="mono text-muted-foreground hover:text-primary transition-colors">{l}</a>
+            <a key={h} href={`${HOME_URL}${h}`} data-testid={`link-nav-${l.toLowerCase().replace(' ', '-')}`} className="text-[15px] font-semibold hover:text-primary transition-colors">{l}</a>
           ))}
-          <a href={`${HOME_URL}#contact`} data-testid="button-nav-contact" className="mono bg-primary text-primary-foreground px-4 py-2 hover:-translate-y-0.5 transition-transform">Start a conversation</a>
+          <a href={`${HOME_URL}#contact`} data-testid="button-nav-contact" className="inline-flex items-center min-h-11 px-5 rounded-full bg-primary text-primary-foreground text-[15px] font-bold hover:brightness-110 transition">Start a conversation</a>
         </nav>
-        <button className="xl:hidden" onClick={() => setOpen(!open)} data-testid="button-menu" aria-label="Menu" aria-expanded={open}>
+        <button className="lg:hidden p-2 -mr-2" onClick={() => setOpen(!open)} data-testid="button-menu" aria-label="Menu" aria-expanded={open}>
           {open ? <X /> : <Menu />}
         </button>
       </div>
       {open && (
-        <div className="xl:hidden border-t bg-background px-6 py-6 flex flex-col gap-5">
-          {[...links, ['Contact', '#contact']].map(([l, h]) => (
-            <a key={h} href={`${HOME_URL}${h}`} onClick={() => setOpen(false)} className="display text-3xl" data-testid={`link-mobile-${l.toLowerCase()}`}>{l}</a>
+        <nav aria-label="Mobile" className="lg:hidden border-t bg-background px-6 py-6 flex flex-col gap-4">
+          {[...links, ['Contact', '#contact'] as [string, string]].map(([l, h]) => (
+            <a key={h} href={`${HOME_URL}${h}`} onClick={() => setOpen(false)} className="display text-4xl" data-testid={`link-mobile-${l.toLowerCase().replace(' ', '-')}`}>{l}</a>
           ))}
-        </div>
+        </nav>
       )}
     </header>
   );
 }
 
+/* ---------- Sections ---------- */
+
 function Hero() {
-  const steps = [0, 1, 2, 3, 4];
   return (
-    <section id="top" className="relative min-h-[100dvh] pt-32 pb-0 overflow-hidden flex flex-col justify-between">
-      <div className="max-w-7xl mx-auto px-6 w-full">
-        <p className="mono text-primary mb-8">
-          Strategic growth partner / Media brands
+    <section id="top" className="max-w-7xl mx-auto px-6 pt-36 md:pt-44 pb-24">
+      <h1 className="display font-black text-[clamp(4rem,12vw,11.5rem)] leading-[0.88]">
+        Your brand’s<br /><span className="text-primary">next step.</span>
+      </h1>
+      <div className="flex flex-wrap items-center gap-8 mt-14">
+        <p className="lede flex-[1_1_420px] max-w-[600px] text-[21px] leading-relaxed">
+          We help media brands unlock new revenue through partnerships, distribution, licensing, audience growth, and brand revitalization.
         </p>
-        <h1 className="display text-[clamp(3.2rem,10.5vw,10rem)] font-normal max-w-6xl">
-          <span className="block">Taking Media</span>
-          <span className="block">Brands to Their</span>
-          <span className="block italic text-primary">Next Step.</span>
-        </h1>
-        <div className="mt-10 grid md:grid-cols-[1fr_auto] gap-8 items-end max-w-6xl">
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
-            We help media brands unlock new revenue opportunities through strategic partnerships, distribution, licensing, audience growth, and brand revitalization.
-          </p>
-          <div className="flex gap-3 flex-wrap">
-            <a href="#contact" data-testid="button-hero-contact" className="mono bg-primary text-primary-foreground px-6 py-4 flex items-center gap-2 hover:-translate-y-0.5 transition-transform">Talk to us <ArrowUpRight size={14} /></a>
-            <a href="#capabilities" data-testid="button-hero-capabilities" className="mono border px-6 py-4 hover:border-primary hover:text-primary transition-colors">What we do</a>
-          </div>
-        </div>
-      </div>
-      <div className="flex items-end h-40 md:h-56 mt-14 w-full">
-        {steps.map((s) => (
-          <div
-            key={s}
-            className="flex-1 border-t border-r origin-bottom transition-[height] duration-700 ease-out"
-            style={{
-              height: `${28 + s * 18}%`,
-              background: s === 4 ? 'hsl(var(--primary))' : `hsl(216 26% ${13 + s * 2}%)`,
-            }}
-          />
-        ))}
+        <a href="#contact" data-testid="button-hero-contact" className="inline-flex items-center gap-2 min-h-14 px-8 rounded-full bg-primary text-primary-foreground font-bold hover:brightness-110 transition">
+          Start a conversation <ArrowUpRight size={18} aria-hidden="true" />
+        </a>
       </div>
     </section>
   );
 }
 
-const caps = [
-  'Brand revitalization',
-  'Revenue strategy',
-  'Distribution & audience growth',
-  'Licensing & partnerships',
+type Company = { name: string; role: string; href?: string };
+
+const current: Company[] = [
+  { name: 'Lucha Underground', role: 'Brand revival & distribution', href: 'https://luchaunderground.com/' },
+  { name: 'El Rey Rebel', role: 'General Manager · formerly El Rey Network', href: 'https://www.elreynetwork.com/' },
+  { name: 'Gate 52', role: 'Project management', href: 'https://gate52.com/' },
+  { name: 'PropQwiz', role: 'Chief Operating Officer', href: 'https://www.propqwiz.com/' },
+  { name: 'DMG', role: 'Dooya Media Group · Brand revival & distribution', href: 'https://dooya.tv/' },
+  { name: 'Pen Ultimate', role: 'Film fund · Brand revival & distribution' },
 ];
 
-function Strip() {
-  const row = [...caps, ...caps, ...caps, ...caps];
+const previous: Company[] = [
+  { name: 'Smosh', role: 'CEO', href: 'https://www.youtube.com/@smosh' },
+  { name: 'Subnation', role: 'Chief Content Officer', href: 'https://www.youtube.com/c/Subnation' },
+  { name: 'Odyssey Impact', role: 'COO', href: 'https://odyssey-impact.org/' },
+  { name: 'Machinima', role: 'Chief Content Officer' },
+  { name: 'Bunim-Murray Productions', role: 'Head of Digital Media', href: 'https://www.bmp51.com/' },
+];
+
+function Work() {
   return (
-    <div className="bg-card text-primary overflow-hidden py-4 border-y">
-      <div className="marquee flex w-max gap-10 whitespace-nowrap">
-        {row.map((c, i) => (
-          <span key={i} className="display text-2xl italic flex items-center gap-10">{c}<Mark size={14} /></span>
-        ))}
+    <section id="work" className="border-y">
+      <div className="max-w-7xl mx-auto px-6 py-16 md:py-20">
+        <SectionLabel className="mb-2">Operating now</SectionLabel>
+        <p className="text-muted-foreground mb-8">Brands Daniel is running or building with today, through FTSM.</p>
+        <ul className="grid md:grid-cols-2 gap-x-12">
+          {current.map((c, i) => (
+            <li key={c.name} className="py-5 border-t" data-testid={`company-current-${i}`}>
+              {c.href ? (
+                <a href={c.href} target="_blank" rel="noreferrer" className="client-link display text-[clamp(2rem,3.6vw,3.4rem)] leading-[1.05]">{c.name}</a>
+              ) : (
+                <span className="display text-[clamp(2rem,3.6vw,3.4rem)] leading-[1.05]">{c.name}</span>
+              )}
+              <p className="mt-2 text-[15px] text-muted-foreground">{c.role}</p>
+            </li>
+          ))}
+        </ul>
+        <div className="flex flex-wrap items-baseline gap-x-8 gap-y-3 mt-12 pt-7 border-t">
+          <p className="mono text-muted-foreground">Previously</p>
+          {previous.map((c) =>
+            c.href ? (
+              <a key={c.name} href={c.href} target="_blank" rel="noreferrer" className="client-link client-link-sm text-xl font-semibold">
+                {c.name} <span className="font-normal text-muted-foreground">· {c.role}</span>
+              </a>
+            ) : (
+              <span key={c.name} className="text-xl font-semibold">
+                {c.name} <span className="font-normal text-muted-foreground">· {c.role}</span>
+              </span>
+            ),
+          )}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 
 function Thesis() {
   return (
-    <section id="thesis" className="max-w-7xl mx-auto px-6 py-28 md:py-40 grid md:grid-cols-12 gap-10">
-      <Reveal className="md:col-span-3"><p className="mono text-primary">01 / Thesis</p></Reveal>
-      <div className="md:col-span-9">
-        <Reveal>
-          <p className="display text-4xl md:text-6xl font-light">
-            Most media brands are worth more than their <span className="italic text-primary">current business model</span> admits.
-          </p>
-        </Reveal>
-        <div className="grid md:grid-cols-2 gap-10 mt-14 text-lg text-muted-foreground leading-relaxed">
-          <Reveal delay={0.1}><p>A name audiences trust. A catalog nobody has re-examined. A format other platforms would pay to carry. Value hides in plain sight, usually because the team inside is busy running the thing.</p></Reveal>
-          <Reveal delay={0.2}><p>We are media operators. We read a brand the way a buyer, a distributor, or a licensee would, find what is underused, and build the deals and audience paths that move it up a step.</p></Reveal>
+    <section id="thesis" className="max-w-7xl mx-auto px-6 py-24 md:py-28 flex flex-wrap gap-14">
+      <h2 className="display flex-[1_1_420px] text-[clamp(2.6rem,5vw,4.6rem)] leading-[0.96]">
+        Most media brands are worth more than their business model admits.
+      </h2>
+      <div className="lede flex-[1_1_420px] flex flex-col gap-5 text-[19px]">
+        <p>A name audiences trust. A catalog nobody has re-examined. A format other platforms would pay to carry. Value hides in plain sight, usually because the team inside is busy running the thing.</p>
+        <p>We are media operators. We read a brand the way a buyer, a distributor, or a licensee would, find what is underused, and build the deals and audience paths that move it up a step.</p>
+      </div>
+    </section>
+  );
+}
+
+function Founder() {
+  return (
+    <section id="daniel" className="bg-card">
+      <div className="max-w-7xl mx-auto px-6 py-24 md:py-28 flex flex-wrap items-center gap-14">
+        <img
+          src={`${HOME_URL}daniel-tibbets.jpg`}
+          alt="Portrait of Daniel Tibbets"
+          width={1000}
+          height={1000}
+          loading="lazy"
+          className="flex-[1_1_340px] w-full max-w-[520px] aspect-square object-cover rounded"
+        />
+        <div className="flex-[999_1_460px] min-w-0">
+          <SectionLabel>Founder</SectionLabel>
+          <h2 className="display font-black text-[clamp(3rem,6vw,5.6rem)] mb-6">Daniel Tibbets</h2>
+          <p className="text-2xl font-bold leading-snug mb-6">An operator, not a consultant. Daniel builds the strategy, then runs it.</p>
+          <div className="lede flex flex-col gap-4 max-w-[640px]">
+            <p>Daniel founded From the Stairs Media to give media brands what most advisors can’t: someone who has actually run the business. FTSM doesn’t hand over a deck and walk away. Daniel plans the strategy and executes it, often stepping into the operating role himself. Today, through FTSM, he is GM of El Rey Rebel and COO of PropQwiz, and is building projects with Lucha Underground, Gate 52, DMG, and the film fund Pen Ultimate.</p>
+            <p>Over 30 years he has been early at every major shift in how audiences watch: vertical mobile drama, YouTube, FAST, and convergence TV. He has started up and turned around networks, studios, and digital brands, taking several to acquisition, including GoTV and Machinima, and has overseen more than 4,000 episodes of television.</p>
+          </div>
+          <a
+            href="https://en.wikipedia.org/wiki/Daniel_Tibbets"
+            target="_blank"
+            rel="noreferrer"
+            data-testid="link-principal-bio"
+            className="inline-flex items-center gap-2 mt-8 font-bold text-primary border-b-2 border-primary pb-1 hover:gap-3 transition-all"
+          >
+            Read Daniel’s full background <ArrowUpRight size={16} aria-hidden="true" />
+          </a>
         </div>
       </div>
     </section>
   );
 }
 
-const capDetail = [
-  ['Brand Revitalization', 'Helping established media brands find new life and new audiences.'],
-  ['Revenue Strategy', 'Identifying untapped opportunities hidden within existing assets.'],
-  ['Distribution & Audience Growth', 'Expanding reach through modern platforms and partnerships.'],
-  ['Licensing & Partnerships', 'Building new revenue streams through strategic business development.'],
+const firsts: { title: string; body: ReactNode; now: string; cta?: boolean }[] = [
+  {
+    title: 'Vertical drama',
+    body: <>At Fox, Daniel created the mobisode and executive produced the first originals, <em>Love and Hate</em> and <em>Sunset Hotel</em>: serialized vertical drama in short episodes, shot for a phone held upright. He then built GoTV into the largest mobile video network, with 20+ original channels.</>,
+    now: 'Now: short-form vertical drama is one of the biggest trends in entertainment. FTSM brings the playbook.',
+    cta: true,
+  },
+  {
+    title: 'YouTube',
+    body: <>At GoTV, three of YouTube’s first ten ad-revenue-share deals went to Daniel’s music channels: Hip Hop Official, Altitude, and Es Musica. He went on to launch and run BRKDWN, lead content at Machinima, the leading gaming network on the platform, and serve as the first CEO of Smosh.</>,
+    now: 'Now: creator-led brands are media companies, and they need operators.',
+  },
+  {
+    title: 'FAST',
+    body: <>As President &amp; GM, Daniel made El Rey Network the first cable network to leave cable entirely for FAST, growing viewership and revenue fourfold in a year.</>,
+    now: 'Now: rebranded as El Rey Rebel, it’s one of the most-viewed FAST channels, and every legacy network is weighing the same move.',
+  },
+  {
+    title: 'Convergence TV',
+    body: <>At Foxlab and 20th Television, Daniel developed and oversaw <em>Classmates</em> with Classmates.com, the first convergence program to air on broadcast television.</>,
+    now: 'Now: every brand is a platform play. Daniel was connecting TV and the web before most networks had a website strategy.',
+  },
 ];
 
-function Capabilities() {
-  const [active, setActive] = useState(0);
+function FirstMovers() {
   return (
-    <section id="capabilities" className="bg-card border-y py-28 md:py-36">
-      <div className="max-w-7xl mx-auto px-6">
-        <Reveal><p className="mono text-primary mb-6">02 / Capabilities</p></Reveal>
-        <Reveal><h2 className="display text-5xl md:text-7xl font-normal max-w-4xl mb-16">What we do.</h2></Reveal>
-        <div className="border-t">
-          {capDetail.map(([t, d], i) => {
-            const on = active === i;
-            return (
-              <button key={t} onClick={() => setActive(i)} onMouseEnter={() => setActive(i)} data-testid={`button-capability-${i}`}
-                className="w-full text-left border-b group block" style={{ paddingLeft: `${i * 2}%` }}>
-                <div className="flex items-baseline gap-6 py-6 md:py-8">
-                  <span className={`mono transition-colors ${on ? 'text-primary' : 'text-muted-foreground'}`}>0{i + 1}</span>
-                  <span className={`display text-3xl md:text-6xl font-light transition-all duration-500 ${on ? 'text-primary italic translate-x-3' : ''}`}>{t}</span>
-                </div>
-                <motion.div initial={false} animate={{ height: on ? 'auto' : 0, opacity: on ? 1 : 0 }} className="overflow-hidden">
-                  <p className="pb-8 pl-14 md:pl-20 max-w-2xl text-muted-foreground text-lg leading-relaxed">{d}</p>
-                </motion.div>
-              </button>
-            );
-          })}
-        </div>
+    <section id="early" className="bg-primary text-primary-foreground">
+      <div className="max-w-7xl mx-auto px-6 py-24">
+        <p className="mono mb-4 font-extrabold">First movers</p>
+        <h2 className="display font-black text-[clamp(3rem,6.4vw,6rem)] leading-[0.9] mb-5">Early, every time.</h2>
+        <p className="max-w-[680px] text-xl leading-relaxed mb-14">Four of today’s biggest shifts in how audiences watch, and Daniel was building in each one before it had a name.</p>
+        {firsts.map((f, i) => (
+          <div key={f.title} className={`flex flex-wrap gap-x-16 gap-y-6 py-9 border-t-2 border-primary-foreground ${i === firsts.length - 1 ? 'pb-0' : ''}`} data-testid={`row-first-${i}`}>
+            <h3 className="display font-black flex-[1_1_380px] text-[clamp(2.4rem,4.4vw,4rem)]">{f.title}</h3>
+            <div className="flex-[1_1_460px] flex flex-col gap-4 text-lg leading-relaxed">
+              <p>{f.body}</p>
+              <p className="font-bold">{f.now}</p>
+              {f.cta && (
+                <a
+                  href={`mailto:${EMAIL}?subject=${encodeURIComponent('Short-form drama')}`}
+                  className="self-start inline-flex items-center min-h-12 px-6 rounded-full bg-primary-foreground text-foreground font-bold hover:opacity-90 transition"
+                  data-testid="button-shortform-contact"
+                >
+                  Talk short-form with Daniel
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
 }
 
-const approach = [
-  ['Read', 'We assess the brand as an outsider-buyer would: audience, assets, rights, positioning, and where revenue is not being captured.'],
-  ['Map', 'We identify the specific partners, platforms, and licensing paths that fit, and rank them by effort against upside.'],
-  ['Open doors', 'We make the introductions and shape the terms, working alongside your team rather than around it.'],
-  ['Build', 'We help turn agreements into operating momentum: launches, audience plans, and the follow-through that makes a deal real.'],
+const services: [string, string][] = [
+  ['Brand revival', 'We take a name with history, put it back in front of an audience, and build the business that makes it pay.'],
+  ['Distribution', 'We get your content onto the platforms where the audience is, and negotiate the carriage and revenue-share deals ourselves.'],
+  ['FAST strategy & launch', 'Channel concept, carriage, programming, and ad sales, from the team that moved a whole network to FAST and grew it 4x.'],
+  ['Short-form & vertical drama', 'Development, production, and monetization of vertical series, from the people who made the first ones.'],
+  ['Licensing & partnerships', 'We find the partners who would pay to carry, license, or co-own what you’ve built, and we close the deal.'],
+  ['Operating leadership & project management', 'When a brand needs someone in the chair, Daniel steps in as GM, COO, or CEO. When it needs a project delivered, we run it from kickoff to launch.'],
+];
+
+function Services() {
+  return (
+    <section id="services" className="max-w-7xl mx-auto px-6 pt-24 md:pt-28 pb-10">
+      <h2 className="display text-[clamp(2.4rem,4.4vw,4rem)] leading-none mb-4">What we do</h2>
+      <p className="lede text-xl max-w-[640px] mb-10">We don’t hand over a deck. We do the work, and we stay until it pays off.</p>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {services.map(([t, d], i) => (
+          <div key={t} className="bg-card rounded p-8" data-testid={`card-service-${i}`}>
+            <h3 className="text-[22px] font-bold leading-snug mb-2.5">{t}</h3>
+            <p className="text-[hsl(36_14%_77%)]">{d}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+const approach: [string, string][] = [
+  ['Read', 'We look at the brand the way a buyer would: audience, rights, catalog, and the money being left on the table.'],
+  ['Map', 'We pick the partners, platforms, and deals worth chasing, ranked by effort against upside.'],
+  ['Open doors', 'We make the calls, run the negotiations, and shape the terms ourselves.'],
+  ['Build', 'We launch it and run it until the deal shows up in the numbers.'],
 ];
 
 function Approach() {
   return (
-    <section id="approach" className="max-w-7xl mx-auto px-6 py-28 md:py-40">
-      <Reveal><p className="mono text-primary mb-6">03 / Approach</p></Reveal>
-      <Reveal><h2 className="display text-5xl md:text-7xl font-normal max-w-3xl mb-20">One step, then <span className="italic">the next.</span></h2></Reveal>
-      <div className="grid md:grid-cols-4 gap-4 items-end">
+    <section id="approach" className="max-w-7xl mx-auto px-6 pt-16 pb-24 md:pb-28">
+      <h2 className="display text-[clamp(2.4rem,4.4vw,4rem)] leading-none mb-10">One step, then the next</h2>
+      <ol className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
         {approach.map(([t, d], i) => (
-          <Reveal key={t} delay={i * 0.1}>
-            <div className="border p-6 bg-card hover:border-primary transition-colors" style={{ minHeight: `${15 + i * 3.5}rem` }} data-testid={`card-step-${i}`}>
-              <p className="display text-7xl text-primary/90 mb-6">{i + 1}</p>
-              <h3 className="display text-3xl mb-3">{t}</h3>
-              <p className="text-muted-foreground leading-relaxed">{d}</p>
-            </div>
-          </Reveal>
+          <li
+            key={t}
+            className="bg-card p-7 border-t-4 border-primary lg:min-h-[var(--h)]"
+            style={{ ['--h' as string]: `${240 + i * 40}px` }}
+            data-testid={`card-step-${i}`}
+          >
+            <p className="display text-[40px] leading-none text-primary mb-2">0{i + 1} {t}</p>
+            <p className="text-[hsl(36_14%_77%)]">{d}</p>
+          </li>
         ))}
-      </div>
-    </section>
-  );
-}
-
-function Principal() {
-  return (
-    <section id="principal" className="bg-card border-y py-24 md:py-32">
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-12 gap-10 items-end">
-        <Reveal className="md:col-span-3">
-          <p className="mono text-primary">04 / Principal</p>
-        </Reveal>
-        <div className="md:col-span-9">
-          <Reveal>
-            <h2 className="display text-5xl md:text-7xl font-normal">Daniel Tibbets</h2>
-            <p className="text-muted-foreground text-lg mt-5">Media executive</p>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <a
-              href="https://en.wikipedia.org/wiki/Daniel_Tibbets"
-              target="_blank"
-              rel="noreferrer"
-              data-testid="link-principal-bio"
-              className="mono text-primary inline-flex mt-8 border-b border-primary pb-2 hover:gap-3 gap-2 transition-all"
-            >
-              Read Daniel’s background <ArrowUpRight size={14} />
-            </a>
-          </Reveal>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-const partners = [
-  ['Publishers and magazines', 'Established titles with equity to extend.'],
-  ['Podcasts and audio', 'Shows and networks ready for wider carriage.'],
-  ['Video, film, and television', 'Libraries and formats that deserve a second window.'],
-  ['Newsletters and digital', 'Independent voices ready to scale beyond one channel.'],
-  ['Events and live', 'Gatherings that can become year-round brands.'],
-  ['Legacy brands', 'Names with history and a dormant audience.'],
-];
-
-function Partners() {
-  return (
-    <section id="partners" className="bg-foreground text-background py-28 md:py-36">
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-12 gap-10">
-        <div className="md:col-span-5">
-          <Reveal><p className="mono mb-6" style={{ color: 'hsl(200 40% 30%)' }}>05 / Who we work with</p></Reveal>
-          <Reveal><h2 className="display text-5xl md:text-7xl font-normal">Built for brands that <span className="italic">already mean something.</span></h2></Reveal>
-        </div>
-        <div className="md:col-span-7 border-t border-background/20">
-          {partners.map(([t, d], i) => (
-            <Reveal key={t} delay={i * 0.05}>
-              <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-2 py-6 border-b border-background/20 hover:pl-4 transition-all duration-500" data-testid={`row-partner-${i}`}>
-                <h3 className="display text-2xl md:text-3xl">{t}</h3>
-                <p className="md:max-w-xs md:text-right" style={{ color: 'hsl(200 20% 28%)' }}>{d}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-const companies = [
-  'Subnation',
-  'Odyssey Impact',
-  'Gray Matters Digital / PropQwiz',
-  'El Rey Rebel',
-  'Lucha Underground',
-  'Gate 52',
-  'Dooya Media Group',
-  'Pen Ultimate',
-];
-
-function Companies() {
-  return (
-    <section id="companies" className="max-w-7xl mx-auto px-6 py-28 md:py-36">
-      <Reveal><p className="mono text-primary mb-6">06 / Companies</p></Reveal>
-      <Reveal>
-        <h2 className="display text-5xl md:text-7xl font-normal max-w-4xl mb-16">
-          Companies we’ve worked with.
-        </h2>
-      </Reveal>
-      <div className="grid grid-cols-2 md:grid-cols-4 border-t border-l">
-        {companies.map((company, i) => (
-          <Reveal key={company} delay={i * 0.04}>
-            <div
-              className="min-h-28 md:min-h-36 border-r border-b p-5 md:p-8 flex items-center display text-xl md:text-2xl break-words hover:text-primary transition-colors"
-              data-testid={`company-${i}`}
-            >
-              {company}
-            </div>
-          </Reveal>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function Principles() {
-  const p = [
-    ['Operators, not observers', 'We think in rights, margins, and relationships, not decks.'],
-    ['Brand first', 'Revenue that costs a brand its identity is borrowed money.'],
-    ['Plain terms', 'Clear scope, clear incentives, no mystery in how we work.'],
-  ];
-  return (
-    <section className="max-w-7xl mx-auto px-6 py-28 md:py-36">
-      <Reveal><p className="mono text-primary mb-12">07 / How we think</p></Reveal>
-      <div className="grid md:grid-cols-3 gap-12">
-        {p.map(([t, d], i) => (
-          <Reveal key={t} delay={i * 0.1}>
-            <div className="border-t-2 border-primary pt-6">
-              <h3 className="display text-3xl mb-4 italic">{t}</h3>
-              <p className="text-muted-foreground text-lg leading-relaxed">{d}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
+      </ol>
     </section>
   );
 }
@@ -359,29 +326,33 @@ function Contact() {
     const body = encodeURIComponent(`Name: ${name}\nBrand: ${brand}\n\n${msg}`);
     window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
   };
-  const field = 'w-full bg-transparent border-b-2 border-foreground/30 focus:border-primary outline-none py-3 text-lg placeholder:text-muted-foreground';
+  const field = 'w-full bg-transparent border-b-2 border-input focus:border-primary outline-none py-3 text-lg placeholder:text-muted-foreground';
   return (
-    <section id="contact" className="bg-card text-foreground border-y py-28 md:py-36">
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16">
+    <section id="contact" className="border-t">
+      <div className="max-w-7xl mx-auto px-6 py-24 md:py-28 grid md:grid-cols-2 gap-16">
         <div>
-          <Reveal><p className="mono text-primary mb-6">08 / Contact</p></Reveal>
-          <Reveal><h2 className="display text-6xl md:text-8xl font-normal">Ready for the <span className="italic">next step?</span></h2></Reveal>
-          <Reveal delay={0.1}>
-            <p className="text-xl mt-8 max-w-md">Tell us about the brand. We will tell you what we see.</p>
-            <a href={`mailto:${EMAIL}`} data-testid="link-email" className="display text-primary text-2xl md:text-3xl mt-6 inline-block underline underline-offset-8 break-all">{EMAIL}</a>
-          </Reveal>
+          <h2 className="display font-black text-[clamp(3.2rem,7vw,6.5rem)] leading-[0.9]">Ready for the <span className="text-primary">next step?</span></h2>
+          <p className="lede text-xl mt-6 max-w-md">Tell us about the brand. We’ll tell you what we see.</p>
+          <a href={`mailto:${EMAIL}`} data-testid="link-email" className="inline-block mt-6 text-xl md:text-2xl font-bold text-primary underline underline-offset-8 break-all">{EMAIL}</a>
         </div>
-        <Reveal delay={0.15}>
-          <form onSubmit={submit} className="space-y-8" data-testid="form-contact">
+        <form onSubmit={submit} className="space-y-8" data-testid="form-contact">
+          <label className="block">
+            <span className="sr-only">Your name</span>
             <input className={field} placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} required data-testid="input-name" />
+          </label>
+          <label className="block">
+            <span className="sr-only">Brand or company</span>
             <input className={field} placeholder="Brand or company" value={brand} onChange={(e) => setBrand(e.target.value)} data-testid="input-brand" />
-            <textarea className={field + ' resize-none'} rows={4} placeholder="What should we know?" value={msg} onChange={(e) => setMsg(e.target.value)} required data-testid="input-message" />
-            <button type="submit" data-testid="button-send" className="mono bg-primary text-primary-foreground px-8 py-5 flex items-center gap-2 hover:-translate-y-0.5 transition-transform">
-              Open in email <ArrowUpRight size={14} />
-            </button>
-            <p className="text-sm text-muted-foreground">This opens your email app with the message prepared.</p>
-          </form>
-        </Reveal>
+          </label>
+          <label className="block">
+            <span className="sr-only">Message</span>
+            <textarea className={`${field} resize-none`} rows={4} placeholder="What should we know?" value={msg} onChange={(e) => setMsg(e.target.value)} required data-testid="input-message" />
+          </label>
+          <button type="submit" data-testid="button-send" className="inline-flex items-center gap-2 min-h-14 px-8 rounded-full bg-primary text-primary-foreground font-bold hover:brightness-110 transition">
+            Open in email <ArrowUpRight size={18} aria-hidden="true" />
+          </button>
+          <p className="text-sm text-muted-foreground">This opens your email app with the message prepared.</p>
+        </form>
       </div>
     </section>
   );
@@ -389,16 +360,17 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="max-w-7xl mx-auto px-6 py-14 flex flex-col md:flex-row justify-between gap-8">
-      <div>
-        <Wordmark />
-        <p className="text-muted-foreground mt-4 text-sm">From the Stairs Media, LLC. FTSM.</p>
-      </div>
-      <div className="flex flex-col gap-2 md:items-end text-sm">
-        <a href={`${HOME_URL}advisors`} className="hover:text-primary transition-colors">Advisors</a>
-        <a href={`mailto:${EMAIL}`} data-testid="link-footer-email" className="hover:text-primary transition-colors">{EMAIL}</a>
-        <a href="#top" data-testid="link-back-top" className="mono text-muted-foreground hover:text-primary">Back to top</a>
-        <p className="text-muted-foreground">fromthestairsmedia.com</p>
+    <footer className="border-t">
+      <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between gap-8">
+        <div>
+          <Wordmark />
+          <p className="text-muted-foreground mt-4 text-sm">© From the Stairs Media, LLC</p>
+        </div>
+        <div className="flex flex-col gap-2 md:items-end text-sm">
+          <a href={`${HOME_URL}advisors`} className="hover:text-primary transition-colors">Advisors</a>
+          <a href={`mailto:${EMAIL}`} data-testid="link-footer-email" className="hover:text-primary transition-colors">{EMAIL}</a>
+          <a href={`${HOME_URL}#top`} data-testid="link-back-top" className="text-muted-foreground hover:text-primary transition-colors">Back to top</a>
+        </div>
       </div>
     </footer>
   );
@@ -406,22 +378,24 @@ function Footer() {
 
 function Home() {
   return (
-    <main>
+    <>
       <Nav />
-      <Hero />
-      <Strip />
-      <Thesis />
-      <Capabilities />
-      <Approach />
-      <Principal />
-      <Partners />
-      <Companies />
-      <Principles />
-      <Contact />
+      <main>
+        <Hero />
+        <Work />
+        <Thesis />
+        <Founder />
+        <FirstMovers />
+        <Services />
+        <Approach />
+        <Contact />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
+
+/* ---------- Routing ---------- */
 
 function Router() {
   return (
@@ -429,11 +403,11 @@ function Router() {
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/advisors">
+          <Nav />
           <main>
-            <Nav />
             <Advisors />
-            <Footer />
           </main>
+          <Footer />
         </Route>
         <Route component={NotFound} />
       </Switch>

@@ -1,1 +1,1 @@
-- [Brand direction](brand-direction.md) — keep FTSM creative but business/professional; the user rejected bright yellow for readability.
+- [Brand direction](brand-direction.md) — Marquee direction: near-black, cream, muted amber; bar-chart stairs logo; "operator, not a consultant".

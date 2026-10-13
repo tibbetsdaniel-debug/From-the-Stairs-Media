@@ -28,10 +28,10 @@ export default function Advisors() {
 
   return (
     <section id="top" className="max-w-7xl mx-auto px-6 pt-36 pb-28 md:pt-44 md:pb-36 min-h-[75dvh]">
-      <p className="mono text-primary mb-8">From the Stairs Media / Advisors</p>
-      <h1 className="display text-6xl md:text-8xl font-normal mb-16 md:mb-24">Our <span className="italic text-primary">advisors.</span></h1>
+      <p className="mono text-primary mb-6">Advisors</p>
+      <h1 className="display font-black text-[clamp(3.5rem,9vw,8rem)] leading-[0.9] mb-16 md:mb-24">Our <span className="text-primary">advisors.</span></h1>
       <div className="border-t border-b py-10 md:py-14 flex flex-col md:flex-row md:items-baseline justify-between gap-6" data-testid="advisor-bob-schwartz">
-        <h2 className="display text-4xl md:text-6xl font-normal">Bob Schwartz</h2>
+        <h2 className="display text-5xl md:text-7xl">Bob Schwartz</h2>
         <p className="mono text-muted-foreground">Advisor</p>
       </div>
     </section>
