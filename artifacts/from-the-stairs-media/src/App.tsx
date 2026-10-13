@@ -127,7 +127,7 @@ function Work() {
   return (
     <section id="work" className="border-y">
       <div className="max-w-7xl mx-auto px-6 py-16 md:py-20">
-        <SectionLabel className="mb-8">Operating now</SectionLabel>
+        <SectionLabel className="mb-8">Current</SectionLabel>
         <ul className="grid md:grid-cols-2 gap-x-12">
           {current.map((c, i) => (
             <li key={c.name} className="py-5 border-t" data-testid={`company-current-${i}`}>
