@@ -16,16 +16,17 @@ import {
 const queryClient = new QueryClient();
 const EMAIL = 'ftsm@fromthestairsmedia.com';
 const HOME_URL = import.meta.env.BASE_URL;
-const CREAM = '#F4EFE7';
+const INK = '#0F0E0C';
 
 /* ---------- Brand ---------- */
 
 export function Mark({ size = 32 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true">
-      <rect x="0" y="20" width="8" height="12" fill={CREAM} />
-      <rect x="12" y="10" width="8" height="22" fill={CREAM} />
-      <rect x="24" y="0" width="8" height="32" fill="hsl(var(--primary))" />
+    <svg width={size} height={size} viewBox="0 0 40 40" aria-hidden="true">
+      <rect x="0" y="0" width="40" height="40" fill="hsl(var(--primary))" />
+      <rect x="7" y="26" width="7" height="14" fill={INK} />
+      <rect x="16.5" y="18" width="7" height="22" fill={INK} />
+      <rect x="26" y="9" width="7" height="31" fill={INK} />
     </svg>
   );
 }
