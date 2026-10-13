@@ -163,7 +163,7 @@ function Thesis() {
   return (
     <section id="thesis" className="max-w-7xl mx-auto px-6 py-24 md:py-28 flex flex-wrap gap-14">
       <h2 className="display flex-[1_1_420px] text-[clamp(2.6rem,5vw,4.6rem)] leading-[0.96]">
-        Most media brands are worth more than their business model admits.
+        Don’t leave revenue on the table.
       </h2>
       <div className="lede flex-[1_1_420px] flex flex-col gap-5 text-[19px]">
         <p>A name audiences trust. A catalog nobody has re-examined. A format other platforms would pay to carry. Value hides in plain sight, usually because the team inside is busy running the thing.</p>
