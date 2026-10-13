@@ -90,7 +90,7 @@ function Hero() {
   return (
     <section id="top" className="max-w-7xl mx-auto px-6 pt-36 md:pt-44 pb-24">
       <h1 className="display font-black text-[clamp(4rem,12vw,11.5rem)] leading-[0.88]">
-        Your brand’s<br /><span className="text-primary">next step.</span>
+        The next step<br /><span className="text-primary">for your brand.</span>
       </h1>
       <div className="flex flex-wrap items-center gap-8 mt-14">
         <p className="lede flex-[1_1_420px] max-w-[600px] text-[21px] leading-relaxed">
