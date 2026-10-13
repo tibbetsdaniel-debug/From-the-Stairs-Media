@@ -50,7 +50,7 @@ function SectionLabel({ children, className = '' }: { children: ReactNode; class
 
 const links: [string, string][] = [
   ['Work', '#work'],
-  ['Daniel', '#daniel'],
+  ['About', '#daniel'],
   ['First movers', '#early'],
   ['Services', '#services'],
   ['Approach', '#approach'],
