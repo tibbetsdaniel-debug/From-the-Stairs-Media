@@ -94,7 +94,7 @@ function Hero() {
       </h1>
       <div className="flex flex-wrap items-center gap-8 mt-14">
         <p className="lede flex-[1_1_420px] max-w-[600px] text-[21px] leading-relaxed">
-          We help media brands unlock new revenue through partnerships, distribution, licensing, audience growth, and brand revitalization.
+          Unlock new revenue through partnerships, distribution, licensing, audience growth, and brand revitalization.
         </p>
         <a href="#contact" data-testid="button-hero-contact" className="inline-flex items-center gap-2 min-h-14 px-8 rounded-full bg-primary text-primary-foreground font-bold hover:brightness-110 transition">
           Start a conversation <ArrowUpRight size={18} aria-hidden="true" />
@@ -127,8 +127,7 @@ function Work() {
   return (
     <section id="work" className="border-y">
       <div className="max-w-7xl mx-auto px-6 py-16 md:py-20">
-        <SectionLabel className="mb-2">Operating now</SectionLabel>
-        <p className="text-muted-foreground mb-8">Companies FTSM is currently operating or working with.</p>
+        <SectionLabel className="mb-8">Operating now</SectionLabel>
         <ul className="grid md:grid-cols-2 gap-x-12">
           {current.map((c, i) => (
             <li key={c.name} className="py-5 border-t" data-testid={`company-current-${i}`}>
