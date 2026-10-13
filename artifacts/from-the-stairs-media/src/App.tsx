@@ -127,7 +127,7 @@ function Work() {
     <section id="work" className="border-y">
       <div className="max-w-7xl mx-auto px-6 py-16 md:py-20">
         <SectionLabel className="mb-2">Operating now</SectionLabel>
-        <p className="text-muted-foreground mb-8">Brands Daniel is running or building with today, through FTSM.</p>
+        <p className="text-muted-foreground mb-8">Companies FTSM is currently operating or working with.</p>
         <ul className="grid md:grid-cols-2 gap-x-12">
           {current.map((c, i) => (
             <li key={c.name} className="py-5 border-t" data-testid={`company-current-${i}`}>
