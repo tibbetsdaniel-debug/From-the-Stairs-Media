@@ -49,7 +49,7 @@ function SectionLabel({ children, className = '' }: { children: ReactNode; class
 /* ---------- Navigation ---------- */
 
 const links: [string, string][] = [
-  ['Work', '#work'],
+  ['Portfolio', '#work'],
   ['About', '#daniel'],
   ['First movers', '#early'],
   ['Services', '#services'],
@@ -153,12 +153,32 @@ function Hero() {
 }
 
 type Company = { name: string; role: string; href?: string };
+type Venture = { name: string; kind: string; desc: string; href?: string };
 
-const current: Company[] = [
+const portfolio: Venture[] = [
+  {
+    name: 'PropQwiz',
+    kind: 'Live real-estate game show',
+    desc: 'A live, daily mobile game where every player has a chance to win a home.',
+    href: 'https://www.propqwiz.com/',
+  },
+  {
+    name: 'BrainJacked',
+    kind: 'Live-streamed bar trivia',
+    desc: 'A comedy-hosted trivia show streamed to bars, where teams compete against every BrainJacked bar in their time zone in real time.',
+  },
+  {
+    name: 'geoTAG!',
+    kind: 'Multiplayer geography trivia',
+    desc: 'Up to four players race to claim all 50 states, with matchmaking, leaderboards and a computer opponent.',
+    href: 'https://www.geotag-usa.com',
+  },
+];
+
+const partners: Company[] = [
   { name: 'Lucha Underground', role: 'Brand revival & distribution', href: 'https://luchaunderground.com/' },
   { name: 'El Rey Rebel', role: 'General Manager · formerly El Rey Network', href: 'https://www.elreynetwork.com/' },
   { name: 'Gate 52', role: 'Project management', href: 'https://gate52.com/' },
-  { name: 'PropQwiz', role: 'Chief Operating Officer', href: 'https://www.propqwiz.com/' },
   { name: 'DMG', role: 'Dooya Media Group · Content distribution', href: 'https://dooya.tv/' },
   { name: 'Pen Ultimate', role: 'Film fund · Advisor' },
 ];
@@ -175,10 +195,27 @@ function Work() {
   return (
     <section id="work" className="border-y">
       <div className="max-w-7xl mx-auto px-6 py-16 md:py-20">
-        <SectionLabel className="mb-8">Current</SectionLabel>
+        <SectionLabel className="mb-2">Portfolio</SectionLabel>
+        <p className="text-muted-foreground mb-8 max-w-[640px]">Companies From the Stairs Media has built and owns. Products we design, build and run ourselves, hands-on with AI.</p>
+        <ul className="grid md:grid-cols-3 gap-4">
+          {portfolio.map((v, i) => (
+            <li key={v.name} className="bg-card rounded p-7 flex flex-col gap-3" data-testid={`company-portfolio-${i}`}>
+              <p className="mono text-primary">{v.kind}</p>
+              {v.href ? (
+                <a href={v.href} target="_blank" rel="noreferrer" className="client-link display text-[clamp(2rem,3vw,2.8rem)] leading-[1.05] self-start">{v.name}</a>
+              ) : (
+                <span className="display text-[clamp(2rem,3vw,2.8rem)] leading-[1.05]">{v.name}</span>
+              )}
+              <p className="text-[hsl(36_14%_77%)]">{v.desc}</p>
+            </li>
+          ))}
+        </ul>
+
+        <SectionLabel className="mt-16 mb-2">Partners</SectionLabel>
+        <p className="text-muted-foreground mb-6">Brands we operate and advise.</p>
         <ul className="grid md:grid-cols-2 gap-x-12">
-          {current.map((c, i) => (
-            <li key={c.name} className="py-5 border-t" data-testid={`company-current-${i}`}>
+          {partners.map((c, i) => (
+            <li key={c.name} className="py-5 border-t" data-testid={`company-partner-${i}`}>
               {c.href ? (
                 <a href={c.href} target="_blank" rel="noreferrer" className="client-link display text-[clamp(2rem,3.6vw,3.4rem)] leading-[1.05]">{c.name}</a>
               ) : (
@@ -238,7 +275,7 @@ function Founder() {
           <h2 className="display font-black text-[clamp(3rem,6vw,5.6rem)] mb-6">Daniel Tibbets</h2>
           <p className="text-2xl font-bold leading-snug mb-6">An operator, not a consultant. Daniel builds the strategy, then runs it.</p>
           <div className="lede flex flex-col gap-4 max-w-[640px]">
-            <p>From the Stairs Media gives media brands more than advice. FTSM offers hands-on guidance, strategy, and execution. Decks are created and implemented, complete with operational support, if desired. Today, through FTSM, Daniel Tibbets is GM of El Rey Rebel and COO of PropQwiz, with several projects in development, working with brands such as Lucha Underground, Gate 52, DMG, and the film fund Pen Ultimate.</p>
+            <p>From the Stairs Media gives media brands more than advice. FTSM offers hands-on guidance, strategy, and execution. Decks are created and implemented, complete with operational support, if desired. Today, through FTSM, Daniel Tibbets is GM of El Rey Rebel and COO of PropQwiz, with several projects in development, working with brands such as Lucha Underground, Gate 52, DMG, and the film fund Pen Ultimate. He also builds FTSM’s own portfolio of games, including BrainJacked and geoTAG!, hands-on with AI, from first idea to live product.</p>
             <p>For over 30 years, Daniel has been early to every major shift in audience viewership, from the inception of vertical mobile drama to YouTube, FAST, and convergence TV.</p>
             <p>From start-ups and network reconstructions to acquisitions and production oversight, Daniel Tibbets has managed over 4,000 episodes of television and had four companies acquired in multimillion-dollar deals.</p>
           </div>
@@ -318,6 +355,7 @@ const services: [string, string][] = [
   ['Short-form & vertical drama', 'Develop, produce, and monetize vertical series.'],
   ['Licensing & partnerships', 'Locate and negotiate with new partners to carry, license, or co-own productions.'],
   ['Operational leadership', 'Be it a GM, COO, or CEO, FTSM provides project management at the highest level at all stages, from launch to acquisition.'],
+  ['Games & interactive products', 'Concept, game design and a working build, fast. We prototype with AI and ship real, scalable products, as we have for PropQwiz, BrainJacked and geoTAG!.'],
 ];
 
 function Services() {
@@ -326,13 +364,17 @@ function Services() {
       <h2 className="display text-[clamp(2.4rem,4.4vw,4rem)] leading-none mb-4">What we do</h2>
       <p className="lede text-xl max-w-[640px] mb-3">From the Stairs Media does more than create decks. FTSM does the work and stays until it pays.</p>
       <p className="font-bold text-lg mb-8">With From the Stairs Media you get:</p>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {services.map(([t, d], i) => (
           <div key={t} className="bg-card rounded p-8" data-testid={`card-service-${i}`}>
             <h3 className="text-[22px] font-bold leading-snug mb-2.5">{t}</h3>
             <p className="text-[hsl(36_14%_77%)]">{d}</p>
           </div>
         ))}
+        <div className="rounded p-8 border-2 border-primary" data-testid="card-shared-upside">
+          <h3 className="text-[22px] font-bold leading-snug mb-2.5 text-primary">Skin in the game</h3>
+          <p className="text-[hsl(36_14%_77%)]">We often work for shared upside, a revenue share or a piece of the outcome, so our incentives match yours.</p>
+        </div>
       </div>
     </section>
   );
