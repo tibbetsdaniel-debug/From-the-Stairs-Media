@@ -136,8 +136,9 @@ function Hero() {
     <section className="relative isolate">
       <HeroVideo />
       <div id="top" className="max-w-7xl mx-auto px-6 pt-36 md:pt-44 pb-24">
-        <h1 className="display font-black text-[clamp(4rem,12vw,11.5rem)] leading-[0.88]">
-          <span className="text-primary">Next</span><br />For your media brand
+        <h1 className="display font-black">
+          <span className="block text-primary text-[clamp(6rem,44vw,34rem)] leading-[0.78] -ml-[0.04em]">Next</span>
+          <span className="block whitespace-nowrap text-[clamp(1.3rem,9.5vw,7.3rem)] leading-none mt-3 md:mt-5">For your media brand</span>
         </h1>
         <div className="flex flex-wrap items-center gap-8 mt-14">
           <p className="lede flex-[1_1_420px] max-w-[600px] text-[21px] leading-relaxed">
