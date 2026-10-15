@@ -196,7 +196,7 @@ function Work() {
     <section id="work" className="border-y">
       <div className="max-w-7xl mx-auto px-6 py-16 md:py-20">
         <SectionLabel className="mb-2">Portfolio</SectionLabel>
-        <p className="text-muted-foreground mb-8 max-w-[640px]">Companies From the Stairs Media has built and owns. Products we design, build and run ourselves, hands-on with AI.</p>
+        <p className="text-muted-foreground mb-8 max-w-[640px]">From the Stairs Media is a media holding company. These are the companies we have built and own, products we design, build and run ourselves, hands-on with AI.</p>
         <ul className="grid md:grid-cols-3 gap-4">
           {portfolio.map((v, i) => (
             <li key={v.name} className="bg-card rounded p-7 flex flex-col gap-3" data-testid={`company-portfolio-${i}`}>
@@ -456,7 +456,7 @@ function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between gap-8">
         <div>
           <Wordmark />
-          <p className="text-muted-foreground mt-4 text-sm">© From the Stairs Media, LLC</p>
+          <p className="text-muted-foreground mt-4 text-sm">© From the Stairs Media, LLC, a media holding company</p>
         </div>
         <div className="flex flex-col gap-2 md:items-end text-sm">
           <a href={`${HOME_URL}advisors`} className="hover:text-primary transition-colors">Advisors</a>
