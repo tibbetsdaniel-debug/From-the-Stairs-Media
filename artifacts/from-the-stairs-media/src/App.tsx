@@ -67,7 +67,7 @@ function Nav() {
           {links.map(([l, h]) => (
             <a key={h} href={`${HOME_URL}${h}`} data-testid={`link-nav-${l.toLowerCase().replace(' ', '-')}`} className="text-[15px] font-semibold hover:text-primary transition-colors">{l}</a>
           ))}
-          <a href={`${HOME_URL}#contact`} data-testid="button-nav-contact" className="inline-flex items-center min-h-11 px-5 rounded-full bg-primary text-primary-foreground text-[15px] font-bold hover:brightness-110 transition">Start a conversation</a>
+          <a href={`${HOME_URL}#contact`} data-testid="button-nav-contact" className="inline-flex items-center min-h-11 px-5 rounded-full bg-primary text-primary-foreground text-[15px] font-bold hover:brightness-110 transition">Take the next step</a>
         </nav>
         <button className="lg:hidden p-2 -mr-2" onClick={() => setOpen(!open)} data-testid="button-menu" aria-label="Menu" aria-expanded={open}>
           {open ? <X /> : <Menu />}
@@ -144,7 +144,7 @@ function Hero() {
             Unlock new revenue through partnerships, distribution, licensing, audience growth, and brand revitalization.
           </p>
           <a href="#contact" data-testid="button-hero-contact" className="inline-flex items-center gap-2 min-h-14 px-8 rounded-full bg-primary text-primary-foreground font-bold hover:brightness-110 transition">
-            Start a conversation <ArrowUpRight size={18} aria-hidden="true" />
+            Take the next step <ArrowUpRight size={18} aria-hidden="true" />
           </a>
         </div>
       </div>
