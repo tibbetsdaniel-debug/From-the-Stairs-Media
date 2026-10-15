@@ -137,7 +137,7 @@ function Hero() {
       <HeroVideo />
       <div id="top" className="max-w-7xl mx-auto px-6 pt-36 md:pt-44 pb-24">
         <h1 className="display font-black text-[clamp(4rem,12vw,11.5rem)] leading-[0.88]">
-          <span className="text-primary">Next step</span><br />For your media brand
+          <span className="text-primary">Next</span><br />For your media brand
         </h1>
         <div className="flex flex-wrap items-center gap-8 mt-14">
           <p className="lede flex-[1_1_420px] max-w-[600px] text-[21px] leading-relaxed">
@@ -423,7 +423,7 @@ function Contact() {
     <section id="contact" className="border-t">
       <div className="max-w-7xl mx-auto px-6 py-24 md:py-28 grid md:grid-cols-2 gap-16">
         <div>
-          <h2 className="display font-black text-[clamp(3.2rem,7vw,6.5rem)] leading-[0.9]">Ready for the <span className="text-primary">next step?</span></h2>
+          <h2 className="display font-black text-[clamp(3.2rem,7vw,6.5rem)] leading-[0.9]">Take the <span className="text-primary">next step</span></h2>
           <p className="lede text-xl mt-6 max-w-md">Tell us about the brand. We’ll tell you what we see.</p>
           <a href={`mailto:${EMAIL}`} data-testid="link-email" className="inline-block mt-6 text-xl md:text-2xl font-bold text-primary underline underline-offset-8 break-all">{EMAIL}</a>
         </div>
